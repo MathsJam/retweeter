@@ -15,6 +15,7 @@ twitter = Twitter(auth=OAuth(config.access_key, config.access_secret,
 accounts = get_jams(datetime.now())
 
 def today(tweet):
+    """Checks that the tweet is from today and not old"""
     now = datetime.now()
     if now.strftime("%Y") not in tweet["created_at"]:
         return False
