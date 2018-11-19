@@ -13,6 +13,7 @@ twitter = Twitter(auth=OAuth(config.access_key, config.access_secret,
                              config.consumer_key, config.consumer_secret))
 
 accounts = get_jams(datetime.now())
+print(accounts)
 
 def today(tweet):
     """Checks that the tweet is from today and not old"""
@@ -27,6 +28,6 @@ for jam in accounts:
     for tweet in twitter.statuses.user_timeline(screen_name=jam, count=10):
         if not tweet["retweeted"] and today(tweet):
             if test:
-                print("If not testing, I would retweet this:",tweet["text"])
+                print("If not testing, I would retweet this:","@"+jam,tweet["text"])
             else:
                 twitter.statuses.retweet(id=tweet["id"])
