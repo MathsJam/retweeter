@@ -25,8 +25,14 @@ def today(tweet):
     return True
 
 for jam in accounts:
-    for tweet in twitter.statuses.user_timeline(screen_name=jam, count=10):
-        if not tweet["retweeted"] and today(tweet):
+    try:
+        tweets = twitter.statuses.user_timeline(screen_name=jam, count=10)
+    except:
+        if test:
+            print("Error loading tweets from @"+jam)
+        continue
+    for tweet in tweets:
+        if not tweet["retweeted"] and today(tweet) and "retweeted_status" not in tweet:
             if test:
                 print("If not testing, I would retweet this:","@"+jam,tweet["text"])
             else:
