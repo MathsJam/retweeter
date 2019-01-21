@@ -21,12 +21,17 @@ def get_jams(today):
     """Gets the Twitter handles of MathsJams that happes on the day given and the day after the day given"""
     data = download_csv("https://mathsjam.com/dates/")
     day1 = today.strftime("%Y-%m-%d")
-    today += timedelta(days=1)
+    today -= timedelta(days=1)
+    day0 = today.strftime("%Y-%m-%d")
+
+    today += timedelta(days=2)
     day2 = today.strftime("%Y-%m-%d")
+    today += timedelta(days=1)
+    day3 = today.strftime("%Y-%m-%d")
     out = []
     for row in data:
         if len(row) == 3:
             city,twitter,date = row
-            if date in [day1,day2]:
+            if date in [day0,day1,day2,day3]:
                 out.append(twitter)
     return out
