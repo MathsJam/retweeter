@@ -32,6 +32,6 @@ def get_jams(today):
     for row in data:
         if len(row) == 3:
             city,twitter,date = row
-            if date in [day0,day1,day2,day3]:
+            if date in [day0,day1,day2,day3] or day1 in ["2019-01-22","2019-01-23"]:
                 out.append(twitter)
     return out
