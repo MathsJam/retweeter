@@ -1,1 +1,3 @@
-twitter
+twitter==1.18.0
+pytz==2018.9
+timezonefinder==3.4.2

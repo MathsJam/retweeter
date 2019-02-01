@@ -1,39 +1,37 @@
 from __future__ import print_function
-from twitter import *
+from twitter import Twitter
 from get_jams import get_jams
 from datetime import datetime
 import config
 import sys
+import logging
 
-test = False
-if "test" in sys.argv:
-    test = True
+logger = logging.getLogger('tweet')
+
+test = "test" in sys.argv
 
 twitter = Twitter(auth=OAuth(config.access_key, config.access_secret,
                              config.consumer_key, config.consumer_secret))
 
-accounts = get_jams(datetime.now())
-print(accounts)
+all_jams = get_jams(datetime.now())
+happening_jams = [jam for jam in all_jams if jam.happening()]
 
 def today(tweet):
     """Checks that the tweet is from today and not old"""
-    now = datetime.now()
-    if now.strftime("%Y") not in tweet["created_at"]:
-        return False
-    if now.strftime("%b %d") not in tweet["created_at"]:
-        return False
-    return True
+    created_at = datetime.strptime(tweet["created_at"],"%a %b %d %H:%M:%S +0000 %Y")
+    now = datetime.utcnow()
+    return created_at > now - timedelta(days=1)
 
-for jam in accounts:
+for jam in happening_jams:
     try:
-        tweets = twitter.statuses.user_timeline(screen_name=jam, count=10)
+        tweets = twitter.statuses.user_timeline(screen_name=jam.twitter, count=10)
     except:
         if test:
-            print("Error loading tweets from @"+jam)
+            logger.error("Error loading tweets from @"+jam)
         continue
     for tweet in tweets:
         if tweet["in_reply_to_status_id"] is None and not tweet["retweeted"] and today(tweet) and "retweeted_status" not in tweet:
             if test:
-                print("If not testing, I would retweet this:","@"+jam,tweet["text"])
+                logger.info("If not testing, I would retweet this:","@"+jam,tweet["text"])
             else:
                 twitter.statuses.retweet(id=tweet["id"])
