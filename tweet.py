@@ -1,5 +1,5 @@
 from __future__ import print_function
-from twitter import Twitter
+from twitter import Twitter,OAuth
 from get_jams import get_jams
 from datetime import datetime
 import config
@@ -13,7 +13,7 @@ test = "test" in sys.argv
 twitter = Twitter(auth=OAuth(config.access_key, config.access_secret,
                              config.consumer_key, config.consumer_secret))
 
-all_jams = get_jams(datetime.now())
+all_jams = get_jams()
 happening_jams = [jam for jam in all_jams if jam.happening()]
 
 def today(tweet):

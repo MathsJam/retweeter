@@ -67,7 +67,7 @@ class Jam(object):
 
 def get_jams():
     """Gets the Twitter handles of MathsJams that happen on the day given and the day after the day given"""
-    data = download_csv("https://mathsjam.com/datesa/")
+    data = download_csv("https://mathsjam.com/dates/")
     jams = []
     for d in data:
         try:
