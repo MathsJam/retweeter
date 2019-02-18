@@ -2,6 +2,7 @@ from __future__ import print_function
 from twitter import Twitter,OAuth
 from get_jams import get_jams
 from datetime import datetime
+from datetime import timedelta
 import config
 import sys
 import logging
