@@ -23,6 +23,12 @@ def today(tweet):
     now = datetime.utcnow()
     return created_at > now - timedelta(days=1)
 
+class BigJam:
+    def __init__(self):
+        self.twitter = "BigMathsJam"
+
+happening_jams.append(BigJam())
+
 for jam in happening_jams:
     try:
         tweets = twitter.statuses.user_timeline(screen_name=jam.twitter, count=10)
