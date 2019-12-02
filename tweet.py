@@ -27,7 +27,8 @@ class BigJam:
     def __init__(self):
         self.twitter = "BigMathsJam"
 
-happening_jams.append(BigJam())
+# Uncomment the following line to turn on retweeting of @BigMathsJam
+# happening_jams.append(BigJam())
 
 for jam in happening_jams:
     try:
