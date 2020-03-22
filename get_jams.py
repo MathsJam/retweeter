@@ -19,7 +19,7 @@ def download_csv(url):
         req = urllib.request.Request(url)
         try:
             response = urllib.request.urlopen(req)
-            raw_data = response.read().decode('ascii')
+            raw_data = response.read().decode('utf-8')
         except urllib.error.HTTPError as e:
             logger.warning('Error fetching jam data: {}'.format(e))
             try:
