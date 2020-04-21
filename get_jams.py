@@ -59,6 +59,9 @@ class Jam(object):
     def happening(self, margin_hours=24):
         """ Is or was the Jam's start time within the given number of hours, relative to now? """
         now = pytz.utc.localize(datetime.utcnow())
+        if now.year == 2020:
+            if now.month == 4 and now.day in [20,21,22]:
+                return True
         margin = timedelta(hours=margin_hours)
         begin = now - margin
         end = now + margin
