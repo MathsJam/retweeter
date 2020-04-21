@@ -60,7 +60,11 @@ class Jam(object):
         """ Is or was the Jam's start time within the given number of hours, relative to now? """
         now = pytz.utc.localize(datetime.utcnow())
         if now.year == 2020:
-            if now.month == 4 and now.day in [20,21,22]:
+            if now.month == 4 and now.day in [20, 21, 22]:
+                return True
+            if now.month == 5 and now.day in [18, 19, 20]:
+                return True
+            if now.month == 6 and now.day in [22, 23, 24]:
                 return True
         margin = timedelta(hours=margin_hours)
         begin = now - margin
