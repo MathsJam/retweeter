@@ -58,6 +58,8 @@ class Jam(object):
 
     def happening(self, margin_hours=24):
         """ Is or was the Jam's start time within the given number of hours, relative to now? """
+        if self.city == "Ottawa ON":
+            margin_hours = 60
         now = pytz.utc.localize(datetime.utcnow())
         if now.year == 2020:
             if now.month == 4 and now.day in [20, 21, 22]:
